@@ -1,0 +1,22 @@
+
+  spring:
+    datasource:
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://localhost:5432/classscchedule
+      username: classscheduleadmin
+      password: Grace@04
+    sql:
+      init:
+        mode: always
+    jpa:
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      # Hibernate is an ORM (object relational mapper)
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+      properties:
+         hibernate:
+           dialect: org.hibernate.dialect.PostgreSQLDialect
+  server:
+    port: 8090
+
