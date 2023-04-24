@@ -1,45 +1,54 @@
 package com.act.classscheduleapi.domains;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.Data;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
+import lombok.*;
+import lombok.NoArgsConstructor;
 
-@Entity(name="account")
+
+
+
+@Entity(name=" account ")
 @Data
+@Transactional
+@NoArgsConstructor
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Size(max = 16, min = 4)
     @Column(nullable = false)
-    @NotBlank(message = "First name can not be empty")
-    private String FirstName;
+    @NotBlank(message = "First name cannot be empty")
+    private String firstName;
 
     @Size(max = 16, min = 4)
+    @Column(nullable =false)
+    @NotBlank(message = "Last name cannot be blank")
+    private String lastName;
+
+    @Column(nullable =false,unique = true)
+    @NotBlank(message = "Phone number cannot be blank")
+    private String phoneNumber;
+
+    @Column(nullable = false, unique = true)
+    @NotBlank(message = "Email cannot be empty")
+    private String email;
+
+    @Column(nullable = false, unique = true)
+    @NotBlank(message = "department can not be blank")
+    private String department;
+
     @Column(nullable = false)
-    @NotBlank(message = "Last name can not be empty")
-    private String LastName;
+    @NotNull(message = "pin must be set")
+    private Integer pin;
 
-    @Column(nullable = false,unique = true)
-    @NotBlank(message = "phone number can not be empty")
-    private String PhoneNumber;
-
-    @Column(nullable = false,unique = true)
-    @NotBlank(message = "Email can not be empty")
-    private String Email;
-
-    @Column(nullable = false,unique = true)
-    @NotBlank(message = "Department can not be empty")
-    private String Department;
-    @Size(max = 8, min = 4)
-    @Column(nullable = false)
-    @NotBlank(message = "Pin can not be empty")
-    private Integer Pin;
-
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+    private Schedule schedule;
 
 
 }
